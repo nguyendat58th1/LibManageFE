@@ -1,0 +1,63 @@
+form { margin: 0px 40px; }
+
+h2 {
+  margin-top: 2px;
+  margin-bottom: 2px;
+}
+
+/* .container { max-width: 360px; } */
+
+/* .divider {
+  text-align: center;
+  margin-top: 20px;
+  margin-bottom: 5px;
+} */
+
+/* .divider hr {
+  margin: 7px 0px;
+  width: 35%;
+} */
+
+.left { float: left; }
+
+.right { float: right; }
+/* .panel-body {
+    padding-left: 55px;
+} */
+  p {
+    color: #bf1650;
+  }
+  
+  p::before {
+    display: inline;
+    content: "⚠ ";
+  }
+  .book {
+    width: 200px;
+    height: 400px;
+  }
+  .imgBook {
+    width: 200px;
+    height: 250px;
+  }
+
+ .container {
+  margin-top: 50px;
+ }
+ .imgDetail {
+  width: 300px;
+  height: 350px;
+ }
+ .tableImg {
+   width: 150px;
+   height: 150px;
+ }
+ .btnTB {
+   width: 80px;
+   height: 40px;
+ }
+ .btnAddBook {
+   float: right;
+ }
+
+ 

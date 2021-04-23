@@ -1,0 +1,37 @@
+{
+  "posts": [
+    {
+      "id": 1,
+      "title": "json-server",
+      "author": "typicode"
+    }
+  ],
+  "comments": [
+    {
+      "id": 1,
+      "body": "some comment",
+      "postId": 1
+    }
+  ],
+  "profile": {
+    "name": "typicode"
+  },
+  "product": [
+    {
+      "id": 1,
+      "productName": "TV",
+      "category": 1,
+      "supplier": "abc",
+      "price": 500,
+      "description": "abcxv"
+    },
+    {
+      "productName": "asvcxv",
+      "category": "3",
+      "supplier": "xcxzczx",
+      "price": "5574574",
+      "description": "sadasd",
+      "id": 2
+    }
+  ]
+}
