@@ -18,23 +18,55 @@ export function ListBook() {
         });
     }, []);
 
-    function Borrow(bookId: number) {
+    function CheckBook(Id : number) {
 
-        setBookId(arr => [...arr, bookId]);
+        for(var i =0; i<bookId.length;i++) {
+            if (bookId[i] === Id) {
+                 alert('This book is in list request already');
+                 return false;
+            }
+        } 
+        return true;
+    }
 
+    function Borrow(Id: number) {
+        
+        if (bookId.length < 5  ) {
+            if (CheckBook(Id)) {
+                setBookId((arr: any) => [...arr, Id]);
+            }
+            
+        }
+        else {
+          alert('You cannot borrow more than 5 books');
+        }
+
+    }
+
+    function Remove(Id : number) {
+        for( var i = 0; i < bookId.length; i++){ 
+    
+            if ( bookId[i] === Id) { 
+        
+                bookId.splice(i, 1);
+                setBookId(bookId=> bookId.filter(item => 
+                        item.bookId !== Id
+                    ));
+               
+            }
+        }
     }
 
     return (
         <div className="container ">
-            <h1>
-                {bookId.length}
-            </h1>
+           
             <table className="table">
                     <thead>
                         <tr>
                             <th scope="col">ID</th>
                             <th scope="col">Title</th>
                             <th scope="col">Author</th>
+                            <th></th>
                         </tr>
                     </thead>
             {bookId.map((b: number) => (
@@ -51,6 +83,7 @@ export function ListBook() {
                                     <th scope="row">{b}</th>
                                     <td>{p.title}</td>
                                     <td>{p.author}</td>
+                                    <td><button className="btn btn-danger" onClick={()=> {Remove(p.bookId)}}>Remove</button></td>
 
                                 </tr>
                                     )
@@ -60,6 +93,8 @@ export function ListBook() {
                 
             ))}
             </table>
+            <button type="submit" className="btn btn-info">Send Request Borrow</button>
+           
 
             <div className="row " >
                 {book &&

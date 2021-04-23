@@ -71,9 +71,11 @@ export function AddBook() {
       <div className="form-group">
         <label htmlFor="exampleFormControlSelect1">Category </label>
         <select  {...register("categoryId")} className="form-control" id="exampleFormControlSelect1">
+        <option value="">--Please choose an option--</option>
         {category &&
         category.length >= 0 &&
         category.map((c: any) => (
+          
           <option value={c.categoryId}>{c.categoryName}</option>
          
           ))}
