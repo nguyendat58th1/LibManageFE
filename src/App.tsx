@@ -3,8 +3,7 @@ import {
   BrowserRouter as Router,
   Switch,
   Route,
-  Link,
-  useHistory
+  Link
 } from "react-router-dom";
 
 import { AddBook } from './pages/Book/add-book';
@@ -17,6 +16,8 @@ import { ListCategory } from './pages/Category/category-list';
 import AddCategory from './pages/Category/add-category';
 import EditCategory from './pages/Category/edit-category';
 import { ListBookAdmin } from './pages/Book/book-list-admin';
+import { ListRequest } from './pages/Request/request-list';
+import { ListRequestAdmin } from './pages/Request/request-list-admin';
 
 function App() {
  
@@ -37,6 +38,12 @@ function App() {
             </li>
             <li className="nav-item active">
               <Link className="nav-link" to="/category">List Category</Link>
+            </li>
+            <li className="nav-item active">
+              <Link className="nav-link" to="/request">List Request</Link>
+            </li>
+            <li className="nav-item active">
+              <Link className="nav-link" to="/requestAdmin">List Request For Admin</Link>
             </li>
            
 
@@ -77,6 +84,12 @@ function App() {
         </Route>
         <Route path="/editcategory/:categoryId">
           <EditCategory />
+        </Route>
+        <Route path="/request">
+          <ListRequest />
+        </Route>
+        <Route path="/requestAdmin">
+          <ListRequestAdmin />
         </Route>
       </Switch>
 

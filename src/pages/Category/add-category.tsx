@@ -1,7 +1,7 @@
-import axios from "axios";
-import React, { useEffect, useState } from "react";
+
+import React, { useState } from "react";
 import { useForm } from "react-hook-form";
-import { Redirect, useHistory } from "react-router";
+import {  useHistory } from "react-router";
 import { GetListCategory } from "./CategoryService/getlistCategory";
 import { PostCategory } from "./CategoryService/postCategory";
 

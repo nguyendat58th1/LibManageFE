@@ -17,21 +17,21 @@ export function Login() {
 
     const { register, handleSubmit,formState: { errors } } = useForm<IFormInput>();
     let history = useHistory();
-    const [user, setUser] = useState([]);
+    //const [user, setUser] = useState();
     const [error, setError] = useState(null);
     async function onSubmit (data: IFormInput)  {
         const User = {
          username: data.username,
-         password: data.password,
+         password: data.password
         
        };
        try {
         await axios.post("https://localhost:5001/api/User/login", User);
-        const res = await axios.get("https://localhost:5001/api/User");
-        const data = res.data;
-        setUser(data);
-        console.log("abc");
-        history.push("/book");
+        // const res = await axios.get("https://localhost:5001/api/User");
+        // const data = res.data;
+        // setUser(data);
+        // console.log("abc");
+        history.push("/category");
        } catch (err) {
          setError(err);
        }

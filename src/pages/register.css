@@ -59,5 +59,8 @@ h2 {
  .btnAddBook {
    float: right;
  }
+ .collapsible {
+   border: #bf1650;
+ }
 
  
