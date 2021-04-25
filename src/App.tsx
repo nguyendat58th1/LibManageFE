@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import {
   BrowserRouter as Router,
   Switch,
@@ -18,9 +18,17 @@ import EditCategory from './pages/Category/edit-category';
 import { ListBookAdmin } from './pages/Book/book-list-admin';
 import { ListRequest } from './pages/Request/request-list';
 import { ListRequestAdmin } from './pages/Request/request-list-admin';
+import { ButtonDropdown, Dropdown, DropdownItem, DropdownMenu, DropdownToggle } from 'reactstrap';
 
 function App() {
- 
+  const [dropdownOpenAdmin, setDropdownOpenAdmin] = useState(false);
+
+  const toggleAdmin = () => setDropdownOpenAdmin(prevState => !prevState);
+
+  const [dropdownOpenUser, setDropdownOpenUser] = useState(false);
+
+  const toggleUser = () => setDropdownOpenUser(prevState => !prevState);
+
   return (
     <Router>
       <nav className="navbar navbar-expand-lg navbar-dark bg-primary">
@@ -31,24 +39,30 @@ function App() {
               <Link className="nav-link" to="/login">Login</Link>
             </li>
             <li className="nav-item active">
-              <Link className="nav-link" to="/book">List Book</Link>
+              <ButtonDropdown isOpen={dropdownOpenAdmin} toggle={toggleAdmin}>
+                <DropdownToggle color="primary" caret>
+                  For Admin
+                </DropdownToggle>
+                <DropdownMenu>
+                  <DropdownItem ><Link to="/bookadmin">List Book For Admin</Link></DropdownItem>
+                  <DropdownItem><Link  to="/requestAdmin">List Request For Admin</Link></DropdownItem>
+                  <DropdownItem><Link  to="/category">List Category</Link></DropdownItem>
+                </DropdownMenu>
+              </ButtonDropdown>
             </li>
-            <li className="nav-item active">
-              <Link className="nav-link" to="/bookadmin">List Book For Admin</Link>
+                    <li className="nav-item active">
+              <ButtonDropdown isOpen={dropdownOpenUser} toggle={toggleUser}>
+                <DropdownToggle color="primary" caret>
+                  For User
+                </DropdownToggle>
+                <DropdownMenu>
+                  <DropdownItem ><Link  to="/book">List Book</Link></DropdownItem>
+                  <DropdownItem><Link  to="/request">List Request</Link></DropdownItem>
+                </DropdownMenu>
+              </ButtonDropdown>
             </li>
-            <li className="nav-item active">
-              <Link className="nav-link" to="/category">List Category</Link>
-            </li>
-            <li className="nav-item active">
-              <Link className="nav-link" to="/request">List Request</Link>
-            </li>
-            <li className="nav-item active">
-              <Link className="nav-link" to="/requestAdmin">List Request For Admin</Link>
-            </li>
-           
-
           </ul>
-          
+
         </div>
       </nav>
 

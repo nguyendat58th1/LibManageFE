@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { GetListBook } from "../Book/BookService/getlistBook";
 import { GetListRequest, GetListRequestDetail } from "./RequestService/getlistRequest";
 
 
@@ -8,7 +9,8 @@ import { GetListRequest, GetListRequestDetail } from "./RequestService/getlistRe
 export function ListRequest() {
     const [request, setRequest]: [any, any] = useState([]);
     const [requestDetail, setRequestDetail]: [any, any] = useState([]);
-    
+    const [book, setBook]: [any, any] = useState([]);
+
     useEffect(() => {
         GetListRequest().then(data => {
             setRequest(data.data);
@@ -21,7 +23,13 @@ export function ListRequest() {
         });
     }, []);
 
-  
+    useEffect(() => {
+        GetListBook().then(data => {
+            setBook(data.data);
+        });
+    }, []);
+
+
 
     return (
         <div className="container ">
@@ -31,13 +39,13 @@ export function ListRequest() {
                         <tr>
                             <th scope="col">Request ID</th>
                             <th scope="col">Request User ID</th>
-                            
+
                             <th scope="col">Date Request</th>
                             <th scope="col">Return Request Date</th>
                             <th scope="col">Status</th>
-                            <th scope="col">Book ID</th>
+                            <th scope="col">Books</th>
 
-                           
+
                         </tr>
                     </thead>
                     <tbody>
@@ -47,30 +55,40 @@ export function ListRequest() {
                                 <tr>
                                     <th scope="row">{r.requestId}</th>
                                     <td>{r.requestUserId}</td>
-                                   
+
                                     <td>{r.dateRequest}</td>
                                     <td>{r.returnRequest}</td>
-                                    <td>{r.status}</td>
+                                    {r.status === 0 && <td style = {{color: "blue"}}>Waiting</td>}
+                                    {r.status === 1 && <td style = {{color: "green"}}>Approve</td>}
+                                    {r.status === 2 && <td style = {{color: "red"}}>Reject</td>}
                                     <td>
-                                    {requestDetail &&
-                                        requestDetail.length > 0 &&
-                                        requestDetail.map((rd: any) => {
-                                            if (rd.requestId === r.requestId) {
-                                                {
-                                                  
-                                                     
-                                                          return( 
-                                                           <div>
-                                                                {rd.bookId}
-                                                                </div>
-                                                          )
-                                                        
+                                        {requestDetail &&
+                                            requestDetail.length > 0 &&
+                                            requestDetail.map((rd: any) => {
+                                                if (rd.requestId === r.requestId) {
+                                                    {
+                                                        return (
+                                                            <div>
+                                                                {book &&
+                                                                    book.length > 0 &&
+                                                                    book.map((b: any) => {
+                                                                        if (b.bookId === rd.bookId) {
+                                                                            return b.title
+                                                                        }
 
-                                                    
+                                                                    })}
+
+                                                            </div>
+                                                        )
+
+
+
+
+
+                                                    }
+
                                                 }
-
-                                            }
-                                        })}
+                                            })}
 
                                     </td>
 

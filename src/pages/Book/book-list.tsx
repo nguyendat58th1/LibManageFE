@@ -93,7 +93,7 @@ export function ListBook() {
             if (bookId[i] === Id) {
 
                 bookId.splice(i, 1);
-                setBookId(bookId => bookId.filter(item =>
+                setBookId((bookId: any[]) => bookId.filter(item =>
                     item.bookId !== Id
                 ));
 

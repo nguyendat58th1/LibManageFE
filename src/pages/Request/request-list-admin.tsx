@@ -1,5 +1,6 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
+import { GetListBook } from "../Book/BookService/getlistBook";
 import {  GetListRequestDetail, GetListRequestForAdmin } from "./RequestService/getlistRequest";
 
 
@@ -11,6 +12,8 @@ export function ListRequestAdmin() {
     const [request, setRequest]: [any, any] = useState([]);
     const [requestDetail, setRequestDetail]: [any, any] = useState([]);
     const [error, setError] = useState(null);
+    const [book, setBook]: [any, any] = useState([]);
+
     
     useEffect(() => {
         GetListRequestForAdmin().then(data => {
@@ -21,6 +24,12 @@ export function ListRequestAdmin() {
     useEffect(() => {
         GetListRequestDetail().then(data => {
             setRequestDetail(data.data);
+        });
+    }, []);
+
+    useEffect(() => {
+        GetListBook().then(data => {
+            setBook(data.data);
         });
     }, []);
 
@@ -90,7 +99,7 @@ export function ListRequestAdmin() {
                             <th scope="col">Date Request</th>
                             <th scope="col">Return Request Date</th>
                             <th scope="col">Status</th>
-                            <th scope="col">Book ID</th>
+                            <th scope="col">Books</th>
                             <th></th>
                             <th></th>
 
@@ -108,23 +117,29 @@ export function ListRequestAdmin() {
                                     <td>{r.rejectUserId}</td>
                                     <td>{r.dateRequest}</td>
                                     <td>{r.returnRequest}</td>
-                                    <td>{r.status}</td>
+                                    {r.status === 0 && <td style = {{color: "blue"}}>Waiting</td>}
+                                    {r.status === 1 && <td style = {{color: "green"}}>Approve</td>}
+                                    {r.status === 2 && <td style = {{color: "red"}}>Reject</td>}
+                                    
                                     <td>
                                     {requestDetail &&
                                         requestDetail.length > 0 &&
                                         requestDetail.map((rd: any) => {
                                             if (rd.requestId === r.requestId) {
                                                 {
-                                                  
-                                                     
-                                                          return( 
-                                                           <div>
-                                                                {rd.bookId}
-                                                                </div>
-                                                          )
-                                                        
+                                                    return (
+                                                        <div>
+                                                            {book &&
+                                                                book.length > 0 &&
+                                                                book.map((b: any) => {
+                                                                    if (b.bookId === rd.bookId) {
+                                                                        return b.title
+                                                                    }
 
-                                                    
+                                                                })}
+
+                                                        </div>
+                                                    )
                                                 }
 
                                             }
