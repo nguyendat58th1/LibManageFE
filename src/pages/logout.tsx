@@ -11,9 +11,6 @@ import { useCookies } from 'react-cookie';
 
 export function Logout() {
 
-    let axiosConfig = {
-        withCredentials: true,
-    }
 
     let history = useHistory();
     //const [user, setUser] = useState();

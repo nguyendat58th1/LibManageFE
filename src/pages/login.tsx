@@ -3,6 +3,7 @@ import { useForm } from "react-hook-form";
 import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 import {  useHistory } from 'react-router';
+import { isTypeQueryNode } from 'typescript';
 
 
 
@@ -11,7 +12,16 @@ type IFormInput = {
     password: string;
 
 }
+type IUser = {
+    userId: number,
+    username: string,
+    password: string,
+    name: string,
+    dob: string,
+    role : number
 
+
+}
 export function Login() {
     
 
@@ -19,14 +29,6 @@ export function Login() {
     const { register, handleSubmit,formState: { errors } } = useForm<IFormInput>();
     let history = useHistory();
     const [error, setError] = useState(null);
-    const [user, setUser]: [any, any] = useState([]);
-
-    useEffect(() => {
-        axios.get("https://localhost:5001/api/User",  {withCredentials: true}).then(data => {
-            setUser(data.data);
-        });
-    }, []);
-
     async function onSubmit (data: IFormInput)  {
         const User = {
          username: data.username,
@@ -40,19 +42,9 @@ export function Login() {
       
 
        try {
-        await axios.post("https://localhost:5001/api/User/login", User , axiosConfig);
-        // const res = await axios.get("https://localhost:5001/api/User");
-        // const data = res.data;
-        // setUser(data);
-        // console.log("abc");
-        for(let i = 0 ; i<user.length ; i++)
-        {
-            if (user[i].username == User.username && user[i].password === User.password) {
-                sessionStorage.setItem('userId', user[i].userId);
-                sessionStorage.setItem('role', user[i].role);
-            }
-        }
-
+         let userLogin = await axios.post<IUser>("https://localhost:5001/api/User/login", User , axiosConfig);
+         sessionStorage.setItem('userId', userLogin.data.userId.toString());
+         sessionStorage.setItem('role', userLogin.data.role.toString());
         history.push("/book");
        } catch (err) {
          setError(err);
