@@ -23,7 +23,7 @@ export function EditCategory() {
   useEffect(() => {
     (async () => {
       axios
-        .get(`https://localhost:5001/api/Category/${categoryId}`)
+        .get(`https://localhost:5001/api/Category/${categoryId}`,  {withCredentials: true})
         .then((res) => res.data)
         .then((data) => {
           setCategory(data);
@@ -45,7 +45,7 @@ export function EditCategory() {
       categoryName: data.categoryName
     };
     try {
-      await axios.put(`https://localhost:5001/api/Category/${categoryId}`, Category);
+      await axios.put(`https://localhost:5001/api/Category/${categoryId}`, Category , {withCredentials: true});
       history.push("/category")
       alert('Success');
     } catch (err) {

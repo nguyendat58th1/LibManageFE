@@ -44,6 +44,8 @@ export function ListRequest() {
                             <th scope="col">Return Request Date</th>
                             <th scope="col">Status</th>
                             <th scope="col">Books</th>
+                            
+                            
 
 
                         </tr>
@@ -80,10 +82,6 @@ export function ListRequest() {
 
                                                             </div>
                                                         )
-
-
-
-
 
                                                     }
 

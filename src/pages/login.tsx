@@ -1,8 +1,8 @@
 import './login.css'
 import { useForm } from "react-hook-form";
 import axios from 'axios';
-import React, { useState } from 'react';
-import { Redirect, useHistory } from 'react-router';
+import React, { useEffect, useState } from 'react';
+import {  useHistory } from 'react-router';
 
 
 
@@ -18,25 +18,47 @@ export function Login() {
 
     const { register, handleSubmit,formState: { errors } } = useForm<IFormInput>();
     let history = useHistory();
-    //const [user, setUser] = useState();
     const [error, setError] = useState(null);
+    const [user, setUser]: [any, any] = useState([]);
+    const [userId, setUserId]: [any, any] = useState();
+
+    useEffect(() => {
+        axios.get("https://localhost:5001/api/User",  {withCredentials: true}).then(data => {
+            setUser(data.data);
+        });
+    }, []);
+
     async function onSubmit (data: IFormInput)  {
         const User = {
          username: data.username,
          password: data.password
         
        };
+    
+    let axiosConfig = {
+        withCredentials: true,
+    }
+      
+
        try {
-        await axios.post("https://localhost:5001/api/User/login", User);
+        await axios.post("https://localhost:5001/api/User/login", User , axiosConfig);
         // const res = await axios.get("https://localhost:5001/api/User");
         // const data = res.data;
         // setUser(data);
         // console.log("abc");
-        history.push("/category");
+        for(let i = 0 ; i<user.length ; i++)
+        {
+            if (user[i].username == User.username && user[i].password === User.password) {
+                sessionStorage.setItem('userId', user[i].userId);
+            }
+        }
+
+        history.push("/book");
        } catch (err) {
          setError(err);
        }
      }
+   
      
     return (
         <div className="wrapper fadeInDown">

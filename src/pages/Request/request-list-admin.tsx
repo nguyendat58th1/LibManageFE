@@ -32,10 +32,11 @@ export function ListRequestAdmin() {
             setBook(data.data);
         });
     }, []);
+    let USER_ID = JSON.parse(sessionStorage.getItem('userId')!);
 
     async function Approve(id : number) {
         try {
-            await axios.put(`https://localhost:5001/api/BookBorrowingRequest/${2}/approve/${id}` ,  2)
+            await axios.put(`https://localhost:5001/api/BookBorrowingRequest/${USER_ID}/approve/${id}` ,  USER_ID , {withCredentials: true})
             .then(
                 (res) => {
                     if (!(res.status === 200)) {
@@ -60,7 +61,7 @@ export function ListRequestAdmin() {
     
     async function Reject(id : number) {
         try {
-            await axios.put(`https://localhost:5001/api/BookBorrowingRequest/${1}/reject/${id}` ,  1)
+            await axios.put(`https://localhost:5001/api/BookBorrowingRequest/${USER_ID}/reject/${id}` , USER_ID , {withCredentials: true})
             .then(
                 (res) => {
                     if (!(res.status === 200)) {
@@ -84,6 +85,29 @@ export function ListRequestAdmin() {
 
     }
 
+    let OnDelete = (id: number) => {
+        var x = window.confirm("Are you sure you want to delete?");
+        if (x) {
+            axios.delete("https://localhost:5001/api/BookBorrowingRequest/" + id,  {withCredentials: true})
+                .then(
+                    (res) => {
+                        if (!(res.status === 200)) {
+                            alert("Delete request failed!")
+                        }
+                        else {
+                            alert("Delete request successfully!");
+                        }
+                    }
+                );
+                setRequest((request: any[]) => request.filter(item =>
+                item.requestId !== id
+            ));
+            return true;
+        }
+        else
+            return false;
+    
+    }
   
 
     return (
@@ -147,8 +171,8 @@ export function ListRequestAdmin() {
 
                                     </td>
                                     <td><button onClick={() => {Approve(r.requestId)}} className="btn btn-success">Approve</button></td>
-                                    <td><button onClick={() => {Reject(r.requestId)}} className="btn btn-danger">Reject</button></td>
-
+                                    <td><button onClick={() => {Reject(r.requestId)}} className="btn btn-warning">Reject</button></td>
+                                    <td><button className="btn btn-danger " onClick={() => { OnDelete(r.requestId) }}>Delete</button></td>
 
                                 </tr>
                             ))}

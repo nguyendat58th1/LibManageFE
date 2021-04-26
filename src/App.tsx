@@ -19,6 +19,7 @@ import { ListBookAdmin } from './pages/Book/book-list-admin';
 import { ListRequest } from './pages/Request/request-list';
 import { ListRequestAdmin } from './pages/Request/request-list-admin';
 import { ButtonDropdown, Dropdown, DropdownItem, DropdownMenu, DropdownToggle } from 'reactstrap';
+import Logout from './pages/logout';
 
 function App() {
   const [dropdownOpenAdmin, setDropdownOpenAdmin] = useState(false);
@@ -30,6 +31,7 @@ function App() {
   const toggleUser = () => setDropdownOpenUser(prevState => !prevState);
 
   return (
+    
     <Router>
       <nav className="navbar navbar-expand-lg navbar-dark bg-primary">
 
@@ -38,6 +40,10 @@ function App() {
             <li className="nav-item active">
               <Link className="nav-link" to="/login">Login</Link>
             </li>
+            <li className="nav-item active">
+              <Link className="nav-link" to="/logout">Logout</Link>
+            </li>
+            
             <li className="nav-item active">
               <ButtonDropdown isOpen={dropdownOpenAdmin} toggle={toggleAdmin}>
                 <DropdownToggle color="primary" caret>
@@ -71,6 +77,9 @@ function App() {
       <Switch>
         <Route path="/login">
           <Login />
+        </Route>
+        <Route path="/logout">
+          <Logout />
         </Route>
         <Route path="/register">
           <Register />

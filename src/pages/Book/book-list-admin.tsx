@@ -7,26 +7,7 @@ import { GetListCategory } from "../Category/CategoryService/getlistCategory";
 
 
 
-let OnDelete = (id: number) => {
-    var x = window.confirm("Are you sure you want to delete?");
-    if (x) {
-        axios.delete("https://localhost:5001/api/Book/" + id)
-            .then(
-                (res) => {
-                    if (!(res.status === 200)) {
-                        alert("Delete book failed!")
-                    }
-                    else {
-                        alert("Delete book successfully!");
-                    }
-                }
-            );
-        return true;
-    }
-    else
-        return false;
 
-}
 
 export function ListBookAdmin() {
     const [book, setBook]: [any, any] = useState([]);
@@ -40,7 +21,7 @@ export function ListBookAdmin() {
 
     useEffect(() => {
         (async () => {
-                GetListCategory()
+            GetListCategory()
                 .then((res) => res.data)
                 .then((data) => {
                     setCategory(data);
@@ -48,6 +29,30 @@ export function ListBookAdmin() {
                 .catch((err) => setError(err));
         })();
     }, []);
+
+    let OnDelete = (id: number) => {
+        var x = window.confirm("Are you sure you want to delete?");
+        if (x) {
+            axios.delete("https://localhost:5001/api/Book/" + id ,  {withCredentials: true})
+                .then(
+                    (res) => {
+                        if (!(res.status === 200)) {
+                            alert("Delete book failed!")
+                        }
+                        else {
+                            alert("Delete book successfully!");
+                        }
+                    }
+                );
+                setBook((bookId: any[]) => bookId.filter(item =>
+                item.bookId !== id
+            ));
+            return true;
+        }
+        else
+            return false;
+    
+    }
 
     return (
         // <div className="container ">

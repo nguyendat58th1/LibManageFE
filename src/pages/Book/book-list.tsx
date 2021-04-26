@@ -32,9 +32,12 @@ export function ListBook() {
         });
     }, []);
 
+    let USER_ID = JSON.parse(sessionStorage.getItem('userId')!);
+
     async function SubmitRequest() {
+        
         try {
-            await axios.post(`https://localhost:5001/api/BookBorrowingRequest/${1}` ,bookId)
+            await axios.post(`https://localhost:5001/api/BookBorrowingRequest/${USER_ID}` ,bookId ,  {withCredentials: true})
             .then(
                 (res) => {
                     if (res.status === 200) {
@@ -42,10 +45,6 @@ export function ListBook() {
                     }
                 }
             );
-            // const res = await axios.get("https://localhost:5001/api/User");
-            // const data = res.data;
-            // setUser(data);
-            // console.log("abc");
            
            } catch (err) {
              setError(err);
