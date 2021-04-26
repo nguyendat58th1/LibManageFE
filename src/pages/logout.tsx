@@ -18,9 +18,10 @@ export function Logout() {
     let history = useHistory();
     //const [user, setUser] = useState();
     useEffect(() => {
-        axios.post("https://localhost:5001/api/User/logout", axiosConfig);
+        axios.post("https://localhost:5001/api/User/logout",  {withCredentials: true});
         history.push("/login");
     }, []);
+    
  
      
     return <></>;

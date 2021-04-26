@@ -20,7 +20,6 @@ export function Login() {
     let history = useHistory();
     const [error, setError] = useState(null);
     const [user, setUser]: [any, any] = useState([]);
-    const [userId, setUserId]: [any, any] = useState();
 
     useEffect(() => {
         axios.get("https://localhost:5001/api/User",  {withCredentials: true}).then(data => {

@@ -75,39 +75,7 @@ export function ListCategory() {
                 }
         </div>
 
-        // <table className="table table-hover">
-        //     <thead>
-        //         <tr>
-        //         <th scope="col">ID</th>
-        //         <th scope="col">Title</th>
-        //         <th scope="col">Author</th>
-        //         <th scope="col">Image</th>
-        //         <th scope="col">Category ID</th>
-        //         <th scope="col">Description</th>
-        //         <th scope ="col"></th>
-        //         <th scope ="col"></th>
-
-        //         </tr>
-        //     </thead>
-        //     <tbody>
-        //     {book &&
-        //             book.length > 0 &&
-        //             book.map((p: any) => (
-        //                 <tr>
-        //                 <th key={p.bookId} scope="row">{p.bookId}</th>
-        //                 <td>{p.title}</td>
-        //                 <td>{p.author}</td>
-        //                 <td>{p.image}</td>
-        //                 <td>{p.categoryId}</td>
-        //                 <td>{p.description}</td>
-        //                 <td> <Link to={`/detailbook/${p.bookId}`}>Detail</Link></td>
-        //                 <td> <Link to={`/editproduct/${p.bookId}`}>Edit</Link></td>
-        //                 </tr>
-        //         ))}
-        //         {/* {listPro.err && <p>Something went wrong!</p>} */}
-
-        //     </tbody>
-        // </table>
+       
 
     )
 }
