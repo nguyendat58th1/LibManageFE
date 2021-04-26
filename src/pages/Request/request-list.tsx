@@ -11,6 +11,8 @@ export function ListRequest() {
     const [requestDetail, setRequestDetail]: [any, any] = useState([]);
     const [book, setBook]: [any, any] = useState([]);
 
+    let USER_ID = JSON.parse(sessionStorage.getItem('userId')!);
+
     useEffect(() => {
         GetListRequest().then(data => {
             setRequest(data.data);
@@ -53,7 +55,10 @@ export function ListRequest() {
                     <tbody>
                         {request &&
                             request.length > 0 &&
-                            request.map((r: any) => (
+                            request.map((r: any) => {
+                                if (r.requestUserId === USER_ID) {
+                                    return(
+                                
                                 <tr>
                                     <th scope="row">{r.requestId}</th>
                                     <td>{r.requestUserId}</td>
@@ -92,7 +97,8 @@ export function ListRequest() {
 
 
                                 </tr>
-                            ))}
+                                )}
+                    })}
                     </tbody>
                 </table>
 

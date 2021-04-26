@@ -29,6 +29,8 @@ function App() {
   const [dropdownOpenUser, setDropdownOpenUser] = useState(false);
 
   const toggleUser = () => setDropdownOpenUser(prevState => !prevState);
+  let USER_ID = JSON.parse(sessionStorage.getItem('userId')!);
+  let USER_ROLE = JSON.parse(sessionStorage.getItem('role')!);
 
   return (
     
@@ -37,13 +39,18 @@ function App() {
 
         <div className="collapse navbar-collapse" id="navbarNav">
           <ul className="navbar-nav">
+            {USER_ID === null && 
             <li className="nav-item active">
               <Link className="nav-link" to="/login">Login</Link>
             </li>
+            }
+            {USER_ID !== null && 
             <li className="nav-item active">
               <Link className="nav-link" to="/logout">Logout</Link>
             </li>
+            }
             
+            {USER_ID !== null && USER_ROLE == 0 &&
             <li className="nav-item active">
               <ButtonDropdown isOpen={dropdownOpenAdmin} toggle={toggleAdmin}>
                 <DropdownToggle color="primary" caret>
@@ -56,6 +63,8 @@ function App() {
                 </DropdownMenu>
               </ButtonDropdown>
             </li>
+            }
+            {USER_ID !== null  &&
                     <li className="nav-item active">
               <ButtonDropdown isOpen={dropdownOpenUser} toggle={toggleUser}>
                 <DropdownToggle color="primary" caret>
@@ -67,6 +76,7 @@ function App() {
                 </DropdownMenu>
               </ButtonDropdown>
             </li>
+            }
           </ul>
 
         </div>

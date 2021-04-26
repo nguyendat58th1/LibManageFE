@@ -4,7 +4,8 @@ import { Link } from "react-router-dom";
 
 
 
-
+let USER_ID = JSON.parse(sessionStorage.getItem('userId')!);
+let USER_ROLE = JSON.parse(sessionStorage.getItem('role')!);
 
 export function ListCategory() {
     const [category, setCategory]: [any, any] = useState([]);
@@ -40,6 +41,8 @@ export function ListCategory() {
 
     return (
         <div className="container ">
+            {USER_ID !== null && USER_ROLE == 0 &&
+             
             <div className="row " >
 
                 <Link className="btn btn-success" to="/addcategory">Add Category</Link>
@@ -69,6 +72,7 @@ export function ListCategory() {
                 </table>
 
             </div>
+                }
         </div>
 
         // <table className="table table-hover">

@@ -6,15 +6,14 @@ import {  GetListRequestDetail, GetListRequestForAdmin } from "./RequestService/
 
 
 
-
+let USER_ID = JSON.parse(sessionStorage.getItem('userId')!);
+let USER_ROLE = JSON.parse(sessionStorage.getItem('role')!);
 
 export function ListRequestAdmin() {
     const [request, setRequest]: [any, any] = useState([]);
     const [requestDetail, setRequestDetail]: [any, any] = useState([]);
     const [error, setError] = useState(null);
     const [book, setBook]: [any, any] = useState([]);
-
-    
     useEffect(() => {
         GetListRequestForAdmin().then(data => {
             setRequest(data.data);
@@ -111,7 +110,9 @@ export function ListRequestAdmin() {
   
 
     return (
+        
         <div className="container-fluid">
+            {USER_ID !== null && USER_ROLE == 0 &&
             <div className="row " >
                 <table className="table table-striped">
                     <thead>
@@ -180,6 +181,7 @@ export function ListRequestAdmin() {
                 </table>
 
             </div>
+        }
         </div>
 
         // <table className="table table-hover">

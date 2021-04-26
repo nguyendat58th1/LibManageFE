@@ -50,6 +50,7 @@ export function Login() {
         {
             if (user[i].username == User.username && user[i].password === User.password) {
                 sessionStorage.setItem('userId', user[i].userId);
+                sessionStorage.setItem('role', user[i].role);
             }
         }
 

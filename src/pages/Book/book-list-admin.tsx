@@ -7,6 +7,8 @@ import { GetListCategory } from "../Category/CategoryService/getlistCategory";
 
 
 
+let USER_ID = JSON.parse(sessionStorage.getItem('userId')!);
+let USER_ROLE = JSON.parse(sessionStorage.getItem('role')!);
 
 
 export function ListBookAdmin() {
@@ -55,34 +57,10 @@ export function ListBookAdmin() {
     }
 
     return (
-        // <div className="container ">
-        //     <div className="row " >
-        //         {book &&
-        //             book.length > 0 &&
-        //             book.map((p: any) => (
-
-        //                 <div className="col-md-4 book ">
-        //                     <div>
-        //                         <img className="imgBook" src={p.image} alt="Card image cap" />
-        //                         <div >
-        //                             <h5 > {p.title}</h5>
-        //                             <h6 > {p.author}</h6>
-        //                             <h6> ID : {p.bookId}</h6>
-
-        //                             {/* <div>{p.description}</div> */}
-        //                             <Link className="btn btn-success" to={`/detailbook/${p.bookId}`}>Detail</Link>
-        //                             {/* <Link className="btn btn-primary" to={`/editbook/${p.bookId}`}>Edit</Link>
-        //                             <button className="btn btn-danger" onClick={() => { OnDelete(p.bookId) }}>Delete</button> */}
-        //                         </div>
-        //                     </div>
-
-        //                 </div>
-
-
-        //             ))}
-        //     </div>
-        // </div>
+     
         <div className="container-fluid">
+             {USER_ID !== null && USER_ROLE == 0 &&
+             <div>
             <Link className="btn btn-info btnAddBook" to="/addbook">Add Book</Link>
             <table className="table table-hover">
                 <thead>
@@ -130,6 +108,8 @@ export function ListBookAdmin() {
 
                 </tbody>
             </table>
+            </div>
+}
         </div>
     )
 }
