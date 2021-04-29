@@ -1,3 +1,5 @@
+import { faCoffee, faThumbsDown, faThumbsUp, faTrashAlt } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { GetListBook } from "../Book/BookService/getlistBook";
@@ -14,11 +16,12 @@ export function ListRequestAdmin() {
     const [requestDetail, setRequestDetail]: [any, any] = useState([]);
     const [error, setError] = useState(null);
     const [book, setBook]: [any, any] = useState([]);
+    const [update, setUpdate]=useState(false);
     useEffect(() => {
         GetListRequestForAdmin().then(data => {
             setRequest(data.data);
         });
-    }, []);
+    }, [update]);
 
     useEffect(() => {
         GetListRequestDetail().then(data => {
@@ -46,18 +49,12 @@ export function ListRequestAdmin() {
                     }
                 }
             );
-            // const res = await axios.get("https://localhost:5001/api/User");
-            // const data = res.data;
-            // setUser(data);
-            // console.log("abc");
-           
+                setUpdate(pre=>!pre);
            } catch (err) {
              setError(err);
            }
 
     }
-
-    
     async function Reject(id : number) {
         try {
             await axios.put(`https://localhost:5001/api/BookBorrowingRequest/${USER_ID}/reject/${id}` , USER_ID , {withCredentials: true})
@@ -71,13 +68,7 @@ export function ListRequestAdmin() {
                     }
                 }
             );
-            // setRequest(request => request.filter(item =>
-            //     item.requestId !== id));
-            // const res = await axios.get("https://localhost:5001/api/User");
-            // const data = res.data;
-            // setUser(data);
-            // console.log("abc");
-           
+            setUpdate(pre=>!pre);
            } catch (err) {
              setError(err);
            }
@@ -171,9 +162,14 @@ export function ListRequestAdmin() {
                                         })}
 
                                     </td>
-                                    <td><button onClick={() => {Approve(r.requestId)}} className="btn btn-success">Approve</button></td>
-                                    <td><button onClick={() => {Reject(r.requestId)}} className="btn btn-warning">Reject</button></td>
-                                    <td><button className="btn btn-danger " onClick={() => { OnDelete(r.requestId) }}>Delete</button></td>
+                                   
+                                    <td>
+                                        {r.status == 0 && <div> <button onClick={() => {Approve(r.requestId)}} className="btn btn-success btnRequest"> <FontAwesomeIcon icon ={faThumbsUp} /> </button></div> }
+                                        {r.status == 0 && <div>  <button onClick={() => {Reject(r.requestId)}} className="btn btn-warning btnRequest"><FontAwesomeIcon icon ={faThumbsDown} /></button></div>}
+                                        <div>
+                                            <button className="btn btn-danger btnRequest" onClick={() => { OnDelete(r.requestId) }}><FontAwesomeIcon icon ={faTrashAlt} /></button>
+                                        </div>
+                                    </td>
 
                                 </tr>
                             ))}
@@ -183,40 +179,6 @@ export function ListRequestAdmin() {
             </div>
         }
         </div>
-
-        // <table className="table table-hover">
-        //     <thead>
-        //         <tr>
-        //         <th scope="col">ID</th>
-        //         <th scope="col">Title</th>
-        //         <th scope="col">Author</th>
-        //         <th scope="col">Image</th>
-        //         <th scope="col">Category ID</th>
-        //         <th scope="col">Description</th>
-        //         <th scope ="col"></th>
-        //         <th scope ="col"></th>
-
-        //         </tr>
-        //     </thead>
-        //     <tbody>
-        //     {book &&
-        //             book.length > 0 &&
-        //             book.map((p: any) => (
-        //                 <tr>
-        //                 <th key={p.bookId} scope="row">{p.bookId}</th>
-        //                 <td>{p.title}</td>
-        //                 <td>{p.author}</td>
-        //                 <td>{p.image}</td>
-        //                 <td>{p.categoryId}</td>
-        //                 <td>{p.description}</td>
-        //                 <td> <Link to={`/detailbook/${p.bookId}`}>Detail</Link></td>
-        //                 <td> <Link to={`/editproduct/${p.bookId}`}>Edit</Link></td>
-        //                 </tr>
-        //         ))}
-        //         {/* {listPro.err && <p>Something went wrong!</p>} */}
-
-        //     </tbody>
-        // </table>
 
     )
 }

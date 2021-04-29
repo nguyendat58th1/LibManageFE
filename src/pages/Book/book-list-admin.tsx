@@ -3,6 +3,8 @@ import { GetListBookAdmin } from "./BookService/getlistBook"
 import { Link } from "react-router-dom";
 import axios from "axios";
 import { GetListCategory } from "../Category/CategoryService/getlistCategory";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faEdit, faInfoCircle, faPlusCircle, faPlusSquare, faThumbsUp, faTrashAlt } from "@fortawesome/free-solid-svg-icons";
 
 
 
@@ -60,8 +62,8 @@ export function ListBookAdmin() {
      
         <div className="container-fluid">
              {USER_ID !== null && USER_ROLE == 0 &&
-             <div>
-            <Link className="btn btn-info btnAddBook" to="/addbook">Add Book</Link>
+             <div style={{marginTop:20}}>
+            <Link className="btn btn-info btnAddBook" to="/addbook"><FontAwesomeIcon icon ={faPlusCircle} /></Link>
             <table className="table table-hover">
                 <thead>
                     <tr>
@@ -97,9 +99,9 @@ export function ListBookAdmin() {
                                 <td>{p.description}</td>
                                 <td></td>
                                 <td>
-                                    <Link className="btn btn-success btnTB" to={`/detailbook/${p.bookId}`}>Detail</Link>
-                                    <Link className="btn btn-primary btnTB" to={`/editbook/${p.bookId}`}>Edit</Link>
-                                    <button className="btn btn-danger btnTB" onClick={() => { OnDelete(p.bookId) }}>Delete</button>
+                                    <Link className="btn btn-success btnTB" to={`/detailbook/${p.bookId}`}><FontAwesomeIcon icon ={faInfoCircle} /></Link>
+                                    <Link className="btn btn-primary btnTB" to={`/editbook/${p.bookId}`}><FontAwesomeIcon icon ={faEdit} /></Link>
+                                    <button className="btn btn-danger btnTB" onClick={() => { OnDelete(p.bookId) }}><FontAwesomeIcon icon ={faTrashAlt} /></button>
                                 </td>
 
                             </tr>

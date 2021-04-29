@@ -62,5 +62,9 @@ h2 {
  .collapsible {
    border: #bf1650;
  }
+ .btnRequest {
+  width: 80px;
+  height: 40px;
+ }
 
  
